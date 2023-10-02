@@ -4,4 +4,57 @@
                  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
 
+    <changeSet id="3" author="maxim.afanasiev">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="quiz_category"/>
+            </not>
+        </preConditions>
+        <createTable tableName="quiz_category">
+            <column name="id" type="number(20,0)"/>
+            <column name="name" type="varchar(50)"/>
+        </createTable>
+
+        <addPrimaryKey tableName="quiz_category" columnNames="id"/>
+        <addUniqueConstraint tableName="quiz_category" columnNames="name" constraintName="unique_quiz_category"/>
+    </changeSet>
+
+    <changeSet id="3_1" author="maxim.afanasiev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                select count(*) from quiz_category where id = 10 and name = 'JAVA';
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="quiz_category">
+            <column name="id" value="10"/>
+            <column name="name" value="JAVA"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="3_2" author="maxim.afanasiev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                select count(*) from quiz_category where id = 11 and name = 'HIBERNATE';
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="quiz_category">
+            <column name="id" value="11"/>
+            <column name="name" value="HIBERNATE"/>
+        </insert>
+    </changeSet>
+
+    <changeSet id="3_3" author="maxim.afanasiev">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">
+                select count(*) from quiz_category where id = 12 and name = 'SPRING';
+            </sqlCheck>
+        </preConditions>
+        <insert tableName="quiz_category">
+            <column name="id" value="12"/>
+            <column name="name" value="SPRING"/>
+        </insert>
+    </changeSet>
+
+
+
 </databaseChangeLog>
